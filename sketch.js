@@ -16,7 +16,9 @@ var earthquakes;
 
 function preload() {
     mapImg = loadImage("https://api.mapbox.com/styles/v1/mapbox/dark-v9/static/0,0,1,0,0/1024x512?access_token=pk.eyJ1Ijoic3NwYm95ZCIsImEiOiJjamx3ZG41ZWcxNW5uM2tyNnJweWJrbXp3In0.ajwQgPkvPoNxbGozKtTTFA");
-    earthquakes = loadStrings("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.csv")
+    // earthquakes = loadStrings("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.csv")
+    earthquakes = loadStrings("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.csv")
+
 }
 
 
@@ -49,12 +51,17 @@ for(var i=0; i<earthquakes.length; i++){
     // console.log(data);
     var lat = data[1];
     var lon = data[2];
+    var mag = data[4];
+    mag = pow(10, mag);
+    mag = sqrt(mag);
+    var magMax = sqrt(pow(10,10));
+    var d = map(mag,0,magMax,0,180);
     var x = mercX(lon) - cx;
     var y = mercY(lat) - cy;
 
-    fill(200, 0, 255, 100);
-    noStroke();
-    ellipse(x, y, 7, 7);
+    fill(199, 47, 255, 123);
+stroke(199,47,255);
+    ellipse(x, y, d, d);
 
 }
 
